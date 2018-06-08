@@ -24,7 +24,7 @@ RUN mkdir -p /opt/eigen_build && cd /opt/eigen_build \
 ADD ceres-solver /opt/ceres-solver
 RUN mkdir -p /opt/ceres_build \
     && cd /opt/ceres_build \
-    && cmake . /opt/ceres-solver/ -DBUILD_TESTS=OFF -DBUILD_PYTHON=ON \
+    && cmake . /opt/ceres-solver/ -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF \
     && make && make install \
     && rm -rf /opt/ceres_build
 
@@ -32,6 +32,6 @@ RUN mkdir -p /opt/ceres_build \
 ADD OpenGV /opt/OpenGV
 RUN mkdir -p /opt/OpenGV_build \
     && cd /opt/OpenGV_build \
-    && cmake . /opt/OpenGV/ -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF \
+    && cmake . /opt/OpenGV/ -DBUILD_TESTS=OFF -DBUILD_PYTHON=ON \
     && make && make install \
     && rm -rf /opt/OpenGV_build
