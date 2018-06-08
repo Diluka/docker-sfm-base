@@ -11,7 +11,7 @@ RUN apt-get update && apt-get -y install \
     libgoogle-glog-dev \
     python-dev python-numpy python-opencv python-pip python-pyexiv2 python-pyproj python-scipy python-yaml \
     freeglut3-dev libglew-dev libglfw3-dev \
-    && apt autoremove && apt clean
+    && apt-get autoremove && apt-get clean
 
 # Install Eigen
 ADD eigen /opt/eigen
