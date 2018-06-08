@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && apt-get -y install \
-    cmake git nano vim \
+    build-essential cmake git nano vim \
     libpng-dev libjpeg-dev libtiff-dev libglu1-mesa-dev \
     libxxf86vm-dev libxxf86vm1 libxmu-dev libxi-dev libxrandr-dev gcc gcc-multilib \
     libopencv-dev \
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get -y install \
 ADD eigen /opt/eigen
 RUN mkdir -p /opt/eigen_build && cd /opt/eigen_build \
     && cmake . /opt/eigen \
-    && make && make install \
+    && make -j && make install \
     && rm -rf /opt/eigen_build
 
 # Install Ceres
@@ -25,13 +25,6 @@ ADD ceres-solver /opt/ceres-solver
 RUN mkdir -p /opt/ceres_build \
     && cd /opt/ceres_build \
     && cmake . /opt/ceres-solver/ -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF \
-    && make && make install \
+    && make -j && make install \
     && rm -rf /opt/ceres_build
 
-# Install OpenGV
-ADD OpenGV /opt/OpenGV
-RUN mkdir -p /opt/OpenGV_build \
-    && cd /opt/OpenGV_build \
-    && cmake . /opt/OpenGV/ -DBUILD_TESTS=OFF -DBUILD_PYTHON=ON \
-    && make && make install \
-    && rm -rf /opt/OpenGV_build
