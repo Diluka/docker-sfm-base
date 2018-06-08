@@ -28,3 +28,11 @@ RUN mkdir -p /opt/ceres_build \
     && make -j && make install \
     && rm -rf /opt/ceres_build
 
+# Install OpenGV
+ADD OpenGV /opt/OpenGV
+RUN mkdir -p /opt/OpenGV_build \
+    && cd /opt/OpenGV_build \
+    && cmake . /opt/OpenGV/ -DBUILD_TESTS=OFF -DBUILD_PYTHON=ON -DCMAKE_CXX_FLAGS="-std=c++11" \
+    && make -j && make install \
+    && rm -rf /opt/OpenGV_build
+
